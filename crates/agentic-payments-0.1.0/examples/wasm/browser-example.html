@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Payments WASM - Browser Example</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+        .success {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .error {
+            color: #f44336;
+            font-weight: bold;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        .loading {
+            color: #2196F3;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Agentic Payments WASM Example</h1>
+        <p>Ed25519 signature verification in the browser using WebAssembly</p>
+
+        <div class="section">
+            <h2>1. Generate Identity</h2>
+            <button onclick="generateIdentity()">Generate New Identity</button>
+            <div id="identity-output" class="output" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>2. Sign Message</h2>
+            <input type="text" id="message-input" placeholder="Enter message to sign"
+                   style="width: 60%; padding: 8px; margin-right: 10px;">
+            <button onclick="signMessage()">Sign</button>
+            <div id="signature-output" class="output" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>3. Verify Signature</h2>
+            <button onclick="verifySignature()">Verify Signature</button>
+            <div id="verification-output" class="output" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>4. Batch Verification</h2>
+            <button onclick="batchVerification()">Test Batch Verification (10 signatures)</button>
+            <div id="batch-output" class="output" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>5. Create AP2 Credential</h2>
+            <button onclick="createCredential()">Create Credential</button>
+            <div id="credential-output" class="output" style="display: none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>6. Library Info</h2>
+            <button onclick="showLibraryInfo()">Show Library Info</button>
+            <div id="info-output" class="output" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import init, {
+            AgentIdentity,
+            verify,
+            verifyBase64,
+            batchVerify,
+            createCredential,
+            version,
+            maxPoolSize,
+            minPoolSize,
+            bytesToBase64,
+            bytesToHex
+        } from './pkg/agentic_payments.js';
+
+        let wasmModule;
+        let currentIdentity = null;
+        let currentSignature = null;
+        let currentMessage = null;
+
+        // Initialize WASM
+        async function initWasm() {
+            try {
+                wasmModule = await init();
+                console.log('✅ WASM module initialized');
+                document.querySelectorAll('button').forEach(btn => btn.disabled = false);
+            } catch (err) {
+                console.error('❌ Failed to initialize WASM:', err);
+                alert('Failed to initialize WASM module. Check console for details.');
+            }
+        }
+
+        window.generateIdentity = async function() {
+            const output = document.getElementById('identity-output');
+            output.style.display = 'block';
+            output.innerHTML = '<span class="loading">Generating identity...</span>';
+
+            try {
+                currentIdentity = AgentIdentity.generate();
+                const publicKey = currentIdentity.publicKeyBase64();
+                const did = currentIdentity.did();
+
+                output.innerHTML = `
+                    <strong class="success">✅ Identity Generated</strong><br>
+                    <strong>DID:</strong> ${did}<br>
+                    <strong>Public Key (Base64):</strong><br>${publicKey}<br>
+                    <strong>Public Key (Hex):</strong><br>${currentIdentity.publicKeyHex()}
+                `;
+            } catch (err) {
+                output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+            }
+        };
+
+        window.signMessage = async function() {
+            const output = document.getElementById('signature-output');
+            const messageInput = document.getElementById('message-input');
+
+            if (!currentIdentity) {
+                output.style.display = 'block';
+                output.innerHTML = '<span class="error">❌ Generate an identity first!</span>';
+                return;
+            }
+
+            const message = messageInput.value || 'Hello, WASM!';
+            currentMessage = message;
+
+            output.style.display = 'block';
+            output.innerHTML = '<span class="loading">Signing message...</span>';
+
+            try {
+                const signatureBytes = currentIdentity.sign(message);
+                currentSignature = bytesToBase64(signatureBytes);
+
+                output.innerHTML = `
+                    <strong class="success">✅ Message Signed</strong><br>
+                    <strong>Message:</strong> ${message}<br>
+                    <strong>Signature (Base64):</strong><br>${currentSignature}<br>
+                    <strong>Signature (Hex):</strong><br>${bytesToHex(signatureBytes)}
+                `;
+            } catch (err) {
+                output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+            }
+        };
+
+        window.verifySignature = async function() {
+            const output = document.getElementById('verification-output');
+
+            if (!currentIdentity || !currentSignature || !currentMessage) {
+                output.style.display = 'block';
+                output.innerHTML = '<span class="error">❌ Sign a message first!</span>';
+                return;
+            }
+
+            output.style.display = 'block';
+            output.innerHTML = '<span class="loading">Verifying signature...</span>';
+
+            try {
+                const startTime = performance.now();
+                const isValid = await verifyBase64(
+                    currentSignature,
+                    currentMessage,
+                    currentIdentity.publicKeyBase64()
+                );
+                const endTime = performance.now();
+
+                const status = isValid ? 'success' : 'error';
+                const icon = isValid ? '✅' : '❌';
+
+                output.innerHTML = `
+                    <strong class="${status}">${icon} Verification ${isValid ? 'Succeeded' : 'Failed'}</strong><br>
+                    <strong>Message:</strong> ${currentMessage}<br>
+                    <strong>Signature Valid:</strong> ${isValid}<br>
+                    <strong>Verification Time:</strong> ${(endTime - startTime).toFixed(2)}ms
+                `;
+            } catch (err) {
+                output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+            }
+        };
+
+        window.batchVerification = async function() {
+            const output = document.getElementById('batch-output');
+            output.style.display = 'block';
+            output.innerHTML = '<span class="loading">Running batch verification...</span>';
+
+            try {
+                const count = 10;
+                const identities = [];
+                const signatures = [];
+                const messages = [];
+                const publicKeys = [];
+
+                // Generate test data
+                for (let i = 0; i < count; i++) {
+                    const identity = AgentIdentity.generate();
+                    const message = `Test message ${i}`;
+                    const sig = identity.sign(message);
+
+                    identities.push(identity);
+                    signatures.push(sig);
+                    messages.push(message);
+                    publicKeys.push(identity.publicKey());
+                }
+
+                const startTime = performance.now();
+                const results = await batchVerify(signatures, messages, publicKeys);
+                const endTime = performance.now();
+
+                const validCount = results.reduce((sum, val) => sum + (val ? 1 : 0), 0);
+                const totalTime = endTime - startTime;
+                const avgTime = totalTime / count;
+
+                output.innerHTML = `
+                    <strong class="success">✅ Batch Verification Complete</strong><br>
+                    <strong>Total Verifications:</strong> ${count}<br>
+                    <strong>Valid Signatures:</strong> ${validCount}/${count}<br>
+                    <strong>Total Time:</strong> ${totalTime.toFixed(2)}ms<br>
+                    <strong>Average Time:</strong> ${avgTime.toFixed(2)}ms per signature<br>
+                    <strong>Throughput:</strong> ${(1000 / avgTime).toFixed(0)} verifications/sec
+                `;
+            } catch (err) {
+                output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+            }
+        };
+
+        window.createCredential = async function() {
+            const output = document.getElementById('credential-output');
+
+            if (!currentIdentity) {
+                output.style.display = 'block';
+                output.innerHTML = '<span class="error">❌ Generate an identity first!</span>';
+                return;
+            }
+
+            output.style.display = 'block';
+            output.innerHTML = '<span class="loading">Creating credential...</span>';
+
+            try {
+                const subjectDid = 'did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK';
+                const credentialType = 'PaymentAuthorization';
+
+                const credential = createCredential(
+                    currentIdentity,
+                    subjectDid,
+                    credentialType
+                );
+
+                const credObj = JSON.parse(credential);
+
+                output.innerHTML = `
+                    <strong class="success">✅ AP2 Credential Created</strong><br>
+                    <strong>Credential JSON:</strong><br>
+                    <pre>${JSON.stringify(credObj, null, 2)}</pre>
+                `;
+            } catch (err) {
+                output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+            }
+        };
+
+        window.showLibraryInfo = async function() {
+            const output = document.getElementById('info-output');
+            output.style.display = 'block';
+
+            try {
+                output.innerHTML = `
+                    <strong class="success">📚 Library Information</strong><br>
+                    <strong>Version:</strong> ${version()}<br>
+                    <strong>Max Pool Size:</strong> ${maxPoolSize()}<br>
+                    <strong>Min Pool Size (BFT):</strong> ${minPoolSize()}<br>
+                    <strong>Target:</strong> wasm32-unknown-unknown<br>
+                    <strong>Crypto:</strong> Ed25519 (ed25519-dalek)
+                `;
+            } catch (err) {
+                output.innerHTML = `<span class="error">❌ Error: ${err.message}</span>`;
+            }
+        };
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('button').forEach(btn => btn.disabled = true);
+            initWasm();
+        });
+    </script>
+</body>
+</html>

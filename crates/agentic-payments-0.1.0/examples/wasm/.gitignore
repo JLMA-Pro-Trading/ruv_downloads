@@ -1,0 +1,19 @@
+# WASM build outputs
+pkg/
+pkg-node/
+pkg-bundler/
+
+# Node modules
+node_modules/
+
+# Build artifacts
+*.wasm
+*.js.map
+
+# Editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

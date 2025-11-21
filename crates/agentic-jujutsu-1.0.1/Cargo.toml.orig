@@ -1,0 +1,99 @@
+[package]
+name = "agentic-jujutsu"
+version = "1.0.1"
+edition = "2021"
+authors = ["Agentic Flow Team <team@ruv.io>"]
+description = "AI-powered Jujutsu VCS wrapper for multi-agent collaboration - 10-100x faster than Git with MCP protocol support"
+license = "MIT"
+repository = "https://github.com/ruvnet/agentic-flow"
+homepage = "https://ruv.io"
+documentation = "https://docs.rs/agentic-jujutsu"
+readme = "CRATE_README.md"
+keywords = ["jujutsu", "vcs", "ai-agents", "wasm", "mcp"]
+categories = ["development-tools", "wasm", "concurrency"]
+exclude = ["docs/", "examples/", "benches/", ".github/", "*.sh"]
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-O", "--enable-bulk-memory"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# Core dependencies
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+anyhow = "1.0"
+chrono = { version = "0.4", features = ["serde", "clock"], default-features = false }
+uuid = { version = "1.0", features = ["v4", "serde", "js"] }
+
+# WASM dependencies (always available)
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = ["console"] }
+
+# CLI argument parsing (native only)
+clap = { version = "4.0", features = ["derive"], optional = true }
+
+# Logging (native only)
+log = { version = "0.4", optional = true }
+env_logger = { version = "0.11", optional = true }
+
+# Native-only dependencies (excluded from WASM builds)
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+errno = "0.3"
+tokio = { version = "1.0", features = ["rt", "rt-multi-thread", "process", "io-util", "time", "macros", "sync"], optional = true }
+async-process = { version = "2.0", optional = true }
+reqwest = { version = "0.11", features = ["json"], optional = true }
+
+[dev-dependencies]
+tokio = { version = "1.0", features = ["full", "test-util"] }
+tokio-test = "0.4"
+proptest = "1.0"
+criterion = "0.5"
+tempfile = "3.0"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+console_error_panic_hook = "0.1"
+getrandom = { version = "0.2", features = ["js"] }
+
+[features]
+default = ["native"]
+native = ["tokio", "async-process"]
+wasm = []
+cli = ["clap", "log", "env_logger"]
+mcp = ["reqwest"]
+mcp-full = ["mcp", "native"]
+
+[[bin]]
+name = "jj-agent-hook"
+required-features = ["native", "cli"]
+
+[[bench]]
+name = "operations"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = "fat"              # Fat LTO for better optimization
+codegen-units = 1
+strip = true
+panic = 'abort'          # Smaller binaries, no unwinding
+incremental = false      # Better optimization, disable for release
+
+# Optimize all dependencies
+[profile.release.package."*"]
+opt-level = 3
+
+# Size-optimized profile for WASM builds
+[profile.release-size]
+inherits = "release"
+opt-level = "z"          # Optimize for size
+lto = "fat"
+codegen-units = 1
+panic = 'abort'
+strip = true

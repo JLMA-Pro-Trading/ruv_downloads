@@ -1,0 +1,7 @@
+{
+  "git": {
+    "sha1": "5099ca14d959b768d60e71c7bcf3f0bef39a9cc5",
+    "dirty": true
+  },
+  "path_in_vcs": "standalone-crates/synaptic-mesh-cli/crates/claude_market"
+}

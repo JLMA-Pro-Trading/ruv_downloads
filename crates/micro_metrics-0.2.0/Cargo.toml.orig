@@ -1,0 +1,41 @@
+[package]
+name = "micro_metrics"
+version = "0.2.0"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords = ["neural-networks", "metrics", "performance", "monitoring"]
+categories = ["science", "development-tools"]
+description = "Performance monitoring and metrics collection for micro-neural networks"
+
+[dependencies]
+micro_core = { version = "0.2.0" }
+serde = { workspace = true, optional = true }
+serde_json = { workspace = true, optional = true }
+
+# Time measurement and statistics
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+# Native timing and system metrics
+psutil = { version = "3.2", optional = true }
+sysinfo = { version = "0.30", optional = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+# WASM timing via JS
+js-sys = { version = "0.3", optional = true }
+web-sys = { version = "0.3", optional = true }
+
+[features]
+default = ["std", "system-metrics", "serde"]
+std = []
+serde = ["dep:serde", "dep:serde_json"]
+wasm = ["js-sys", "web-sys", "micro_core/wasm"]
+wasm-simd = ["wasm", "micro_core/simd"]
+system-metrics = ["psutil", "sysinfo"]
+
+[dev-dependencies]
+criterion.workspace = true
+approx = "0.5"
+proptest = "1.5"
+
+# Part of the main workspace

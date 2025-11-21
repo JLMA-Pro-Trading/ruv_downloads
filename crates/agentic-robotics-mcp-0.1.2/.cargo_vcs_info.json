@@ -1,0 +1,7 @@
+{
+  "git": {
+    "sha1": "81577e4ad9e0a496b88190b604e5d839c39b6e08",
+    "dirty": true
+  },
+  "path_in_vcs": "crates/agentic-robotics-mcp"
+}

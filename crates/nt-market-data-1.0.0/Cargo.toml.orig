@@ -1,0 +1,40 @@
+[package]
+name = "nt-market-data"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Market data providers and streaming for Neural Trader - supports Alpaca, Polygon, IEX, and more"
+documentation = "https://docs.rs/nt-market-data"
+readme = "README.md"
+keywords = ["trading", "market-data", "finance", "stocks", "crypto"]
+categories = ["finance", "network-programming", "asynchronous"]
+
+[dependencies]
+nt-core = { version = "1.0.0", path = "../core" }
+
+# Workspace dependencies
+tokio.workspace = true
+tokio-tungstenite.workspace = true
+tokio-stream = "0.1"
+reqwest.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+rust_decimal.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+async-trait.workspace = true
+anyhow.workspace = true
+
+# Additional dependencies
+futures = "0.3"
+dashmap = "5.5"
+parking_lot = "0.12"
+governor = "0.6"
+
+[dev-dependencies]
+tokio-test = "0.4"
+mockall.workspace = true
+rust_decimal_macros = "1.33"

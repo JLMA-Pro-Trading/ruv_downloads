@@ -1,0 +1,7 @@
+{
+  "git": {
+    "sha1": "7175af1f1150a8ef1899907515838a3fac66b020",
+    "dirty": true
+  },
+  "path_in_vcs": "cuda-wasm"
+}

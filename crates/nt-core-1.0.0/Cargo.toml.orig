@@ -1,0 +1,49 @@
+[package]
+name = "nt-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Core types, traits, and utilities for Neural Trader - A high-performance algorithmic trading platform"
+documentation = "https://docs.rs/nt-core"
+readme = "README.md"
+keywords = ["trading", "neural", "finance", "algorithmic", "rust"]
+categories = ["finance", "algorithms", "asynchronous"]
+
+[dependencies]
+# Async
+tokio = { workspace = true }
+async-trait = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Decimal precision
+rust_decimal = { workspace = true }
+
+# Date/Time
+chrono = { workspace = true }
+
+# UUID
+uuid = { workspace = true }
+
+# Error handling
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# Configuration
+toml = { workspace = true }
+
+# Validation
+validator = { version = "0.16", features = ["derive"] }
+
+# Concurrent data structures
+dashmap = "5.5"
+parking_lot = "0.12"
+
+[dev-dependencies]
+proptest = { workspace = true }
+tokio = { workspace = true, features = ["test-util"] }
+tempfile = "3.8"

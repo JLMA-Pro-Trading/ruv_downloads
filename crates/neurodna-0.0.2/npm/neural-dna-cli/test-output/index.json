@@ -1,0 +1,16 @@
+{
+  "generated_at": "2025-07-12T04:43:53.402Z",
+  "count": 2,
+  "files": [
+    {
+      "id": 0,
+      "filename": "dna_000.json",
+      "path": "./dna_000.json"
+    },
+    {
+      "id": 1,
+      "filename": "dna_001.json",
+      "path": "./dna_001.json"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "git": {
+    "sha1": "bc24a268f48ec2b6dc031b71bbeca915f9482681",
+    "dirty": true
+  },
+  "path_in_vcs": "crates/agentic-robotics-node"
+}

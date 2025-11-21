@@ -1,0 +1,104 @@
+{
+  "name": "agentic-jujutsu",
+  "version": "1.0.0",
+  "description": "Version control for AI agents - npx CLI tool that's 23x faster than Git. Lock-free multi-agent collaboration with MCP protocol. Zero installation required.",
+  "keywords": [
+    "ai-agents",
+    "npx",
+    "cli",
+    "version-control",
+    "jujutsu",
+    "mcp",
+    "multi-agent",
+    "lock-free",
+    "concurrent",
+    "ai-coding",
+    "autonomous-agents",
+    "claude-code",
+    "cursor",
+    "copilot",
+    "wasm",
+    "rust"
+  ],
+  "author": "Agentic Flow Team <team@ruv.io>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruvnet/agentic-flow.git",
+    "directory": "packages/agentic-jujutsu"
+  },
+  "homepage": "https://ruv.io",
+  "bugs": {
+    "url": "https://github.com/ruvnet/agentic-flow/issues"
+  },
+  "main": "pkg/node/agentic_jujutsu.js",
+  "module": "pkg/bundler/agentic_jujutsu.js",
+  "browser": "pkg/web/agentic_jujutsu.js",
+  "types": "pkg/web/agentic_jujutsu.d.ts",
+  "bin": {
+    "agentic-jujutsu": "./bin/cli.js",
+    "jj-ai": "./bin/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./pkg/web/agentic_jujutsu.d.ts",
+      "import": "./pkg/bundler/agentic_jujutsu.js",
+      "require": "./pkg/node/agentic_jujutsu.js",
+      "browser": "./pkg/web/agentic_jujutsu.js",
+      "deno": "./pkg/deno/agentic_jujutsu.ts"
+    },
+    "./web": {
+      "types": "./pkg/web/agentic_jujutsu.d.ts",
+      "import": "./pkg/web/agentic_jujutsu.js"
+    },
+    "./node": {
+      "types": "./pkg/node/agentic_jujutsu.d.ts",
+      "require": "./pkg/node/agentic_jujutsu.js"
+    },
+    "./bundler": {
+      "types": "./pkg/bundler/agentic_jujutsu.d.ts",
+      "import": "./pkg/bundler/agentic_jujutsu.js"
+    },
+    "./deno": {
+      "types": "./pkg/deno/agentic_jujutsu.d.ts",
+      "import": "./pkg/deno/agentic_jujutsu.ts"
+    }
+  },
+  "files": [
+    "pkg/",
+    "bin/",
+    "scripts/mcp-server.js",
+    "scripts/agentic-flow-integration.js",
+    "scripts/install-jj.js",
+    "examples/",
+    "README.md",
+    "CRATE_README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "./scripts/wasm-pack-build.sh --release",
+    "build:dev": "./scripts/wasm-pack-build.sh",
+    "test": "npm run verify && npm run test:wasm",
+    "test:wasm": "node tests/wasm/basic.test.js",
+    "test:integration": "node tests/benchmarks/performance.bench.js",
+    "test:docker": "./scripts/docker-test.sh",
+    "bench": "node tests/benchmarks/performance.bench.js",
+    "size": "./scripts/analyze-size.sh",
+    "verify": "./scripts/verify-build.sh",
+    "clean": "rm -rf pkg/ target/",
+    "prepublishOnly": "npm run build && npm run verify",
+    "postinstall": "node scripts/install-jj.js",
+    "mcp-server": "node scripts/mcp-server.js",
+    "example:node": "node examples/node/basic-usage.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "peerDependencies": {},
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

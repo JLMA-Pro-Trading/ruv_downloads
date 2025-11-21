@@ -1,0 +1,15 @@
+2024-01-01 10:00:01.123 INFO  [main] Application starting on port 8080
+2024-01-01 10:00:01.456 INFO  [main] Database connection pool initialized (size: 10)
+2024-01-01 10:00:01.789 INFO  [main] Redis connection established
+2024-01-01 10:00:02.000 INFO  [http-nio-8080-exec-1] GET /api/health - 200 OK (2ms)
+2024-01-01 10:00:05.234 WARN  [http-nio-8080-exec-2] High memory usage: 85% (heap: 850MB/1GB)
+2024-01-01 10:00:07.567 ERROR [http-nio-8080-exec-3] Failed to authenticate user: invalid token
+2024-01-01 10:00:08.890 INFO  [http-nio-8080-exec-4] POST /api/users - 201 Created (45ms)
+2024-01-01 10:00:12.345 DEBUG [db-pool-1] SQL: SELECT * FROM users WHERE id = ? (12ms)
+2024-01-01 10:00:15.678 ERROR [redis-pool-1] Redis connection timeout after 5000ms
+2024-01-01 10:00:18.901 WARN  [scheduler-1] Background job queue size: 1250 (threshold: 1000)
+2024-01-01 10:00:22.234 INFO  [http-nio-8080-exec-5] PUT /api/users/123 - 200 OK (23ms)
+2024-01-01 10:00:25.567 ERROR [http-nio-8080-exec-6] Database query failed: connection reset
+2024-01-01 10:00:28.890 INFO  [metrics-reporter] CPU: 45%, Memory: 82%, Disk: 67%
+2024-01-01 10:00:32.123 DEBUG [cache-manager] Cache hit rate: 94.5% (hits: 9450, misses: 550)
+2024-01-01 10:00:35.456 WARN  [security-monitor] 5 failed login attempts from IP 192.168.1.100

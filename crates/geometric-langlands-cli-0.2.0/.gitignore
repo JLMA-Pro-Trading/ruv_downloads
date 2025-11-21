@@ -1,0 +1,18 @@
+# Build artifacts
+target/
+Cargo.lock
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.log
+
+# Development artifacts
+.swarm/
+
+# OS generated files
+.DS_Store
+Thumbs.db

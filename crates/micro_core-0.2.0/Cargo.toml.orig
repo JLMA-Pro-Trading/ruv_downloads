@@ -1,0 +1,59 @@
+[package]
+name = "micro_core"
+version = "0.2.0"
+edition = "2021"
+authors = ["rUv-FANN Team"]
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/ruvnet/ruv-FANN"
+description = "Core no_std Semantic Cartan Matrix implementation for rUv-FANN"
+keywords = ["neural-network", "cartan-matrix", "no-std", "wasm", "simd"]
+categories = ["no-std", "algorithms", "mathematics", "wasm"]
+
+[features]
+default = []
+std = []
+wasm = ["wasm-bindgen", "getrandom/js"]
+simd = ["wide"]
+simd-sse = ["simd"]
+simd-avx = ["simd"]
+simd-wasm = ["simd", "wasm-bindgen"]
+
+[dependencies]
+# Core dependencies - all no_std compatible
+libm = { version = "0.2", default-features = false }
+heapless = { version = "0.8", default-features = false }
+nalgebra = { version = "0.32", default-features = false, features = ["libm"] }
+
+# SIMD dependencies
+wide = { version = "0.7", optional = true, default-features = false }
+
+# Optional dependencies
+wasm-bindgen = { version = "0.2", optional = true }
+js-sys = { version = "0.3", optional = true }
+web-sys = { version = "0.3", optional = true, features = ["console"] }
+getrandom = { version = "0.2", optional = true, default-features = false }
+console_error_panic_hook = { version = "0.1", optional = true }
+wee_alloc = { version = "0.4", optional = true }
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+approx = "0.5"
+quickcheck = "1.0"
+proptest = "1.5"
+rand = "0.8"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+
+[profile.release.package."*"]
+opt-level = "z"
+
+[[example]]
+name = "basic_usage"
+required-features = ["std"]

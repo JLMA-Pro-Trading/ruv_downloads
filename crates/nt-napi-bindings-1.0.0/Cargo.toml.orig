@@ -1,0 +1,65 @@
+[package]
+name = "nt-napi-bindings"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Node.js N-API bindings for Neural Trader - High-performance TypeScript/JavaScript interface"
+documentation = "https://docs.rs/nt-napi-bindings"
+readme = "README.md"
+keywords = ["napi", "nodejs", "bindings", "trading", "javascript"]
+categories = ["api-bindings", "finance"]
+
+[lib]
+crate-type = ["cdylib"]
+name = "neural_trader"
+
+[dependencies]
+# Core crate with all trading types
+nt-core = { version = "1.0.0", path = "../core" }
+
+# napi-rs for Node.js FFI
+napi = { version = "2.16", features = ["async", "tokio_rt"] }
+napi-derive = "2.16"
+
+# Additional dependencies for FFI layer
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+rust_decimal = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# Utilities
+num_cpus = "1.16"
+rustc_version_runtime = "0.3"
+
+# Optional: MessagePack for efficient binary encoding
+rmp-serde = { version = "1.1", optional = true }
+
+[build-dependencies]
+napi-build = "2.1"
+
+[features]
+default = []
+# Enable GPU acceleration (placeholder for future)
+gpu = []
+# Enable MessagePack encoding for large data transfers
+msgpack = ["rmp-serde"]
+
+# Profile settings are managed at workspace root
+
+# Package metadata for napi-rs
+[package.metadata.napi]
+name = "neural-trader"
+# List of supported platforms
+triples = [
+  "x86_64-unknown-linux-gnu",
+  "x86_64-unknown-linux-musl",
+  "x86_64-apple-darwin",
+  "aarch64-apple-darwin",
+  "x86_64-pc-windows-msvc",
+]

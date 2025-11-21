@@ -1,0 +1,28 @@
+[package]
+name = "conformal-prediction"
+version = "2.0.0"
+edition = "2021"
+authors = ["Neural Trader Team <noreply@neural-trader.io>"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ruvnet/neural-trader"
+keywords = ["conformal", "prediction", "uncertainty", "machine-learning", "statistics"]
+categories = ["algorithms", "science", "mathematics"]
+description = "Conformal prediction with formal verification: CPD, PCP, streaming calibration, and Lean4 proofs"
+documentation = "https://docs.rs/conformal-prediction"
+homepage = "https://github.com/ruvnet/neural-trader"
+readme = "README.md"
+exclude = ["benches/", "tests/"]
+
+[dependencies]
+lean-agentic = "0.1.0"
+ndarray = "0.17.1"
+random-world = "0.3.0"
+rand = "0.8"
+
+[dev-dependencies]
+criterion = { workspace = true }
+proptest = { workspace = true }
+
+[[bench]]
+name = "conformal_benchmarks"
+harness = false
