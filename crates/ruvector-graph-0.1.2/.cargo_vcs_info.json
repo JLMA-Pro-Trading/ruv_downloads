@@ -1,0 +1,7 @@
+{
+  "git": {
+    "sha1": "441ab26f7d190ff66126256b19297cde94ae69a2",
+    "dirty": true
+  },
+  "path_in_vcs": "crates/ruvector-graph"
+}

@@ -1,0 +1,7 @@
+{
+  "git": {
+    "sha1": "9c3d208ad51d9d80ab22ce29bf1673ffbfb833d6",
+    "dirty": true
+  },
+  "path_in_vcs": "crates/ruvector-gnn-wasm"
+}
