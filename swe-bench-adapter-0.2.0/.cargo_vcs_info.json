@@ -1,7 +1,0 @@
-{
-  "git": {
-    "sha1": "b7497929b13a3a71a6ddb13991c402255facb2e9",
-    "dirty": true
-  },
-  "path_in_vcs": "ruv-swarm/crates/swe-bench-adapter"
-}

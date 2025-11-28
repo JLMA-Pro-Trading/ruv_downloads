@@ -2,6 +2,9 @@
 set -e
 set -o pipefail
 
+# Ensure we are running in the script's directory
+cd "$(dirname "$0")"
+
 # NPM user/profile URL to indicate the source of the packages
 NPM_USER_URL="https://www.npmjs.com/~ruvnet"
 MANIFEST_FILE="packagelist.dynamic.txt"

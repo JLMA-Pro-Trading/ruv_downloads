@@ -1,7 +1,0 @@
-{
-  "git": {
-    "sha1": "eb0343fc52c97fdc3f51066812d14b4486fc4c83",
-    "dirty": true
-  },
-  "path_in_vcs": "opencv-rust/opencv-wasm"
-}

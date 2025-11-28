@@ -1,6 +1,0 @@
-{
-  "git": {
-    "sha1": "bf915d86ad2a4f610287787dd2ef5e99f392f84e"
-  },
-  "path_in_vcs": "neural-trader-rust/crates/napi-bindings"
-}

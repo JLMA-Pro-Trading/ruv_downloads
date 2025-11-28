@@ -1,7 +1,0 @@
-{
-  "git": {
-    "sha1": "ee15204bb5867f898b44c037ab9fd54a527dd904",
-    "dirty": true
-  },
-  "path_in_vcs": "standalone-crates/synaptic-mesh-cli"
-}

@@ -2,6 +2,9 @@
 set -e
 set -o pipefail
 
+# Ensure we are running in the script's directory
+cd "$(dirname "$0")"
+
 # Crates.io user/profile URL (source of crates)
 CRATES_IO_USER_URL="https://crates.io/users/ruvnet"
 MANIFEST_FILE="crates.dynamic.txt"
