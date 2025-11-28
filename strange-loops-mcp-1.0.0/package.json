@@ -1,0 +1,32 @@
+{
+  "name": "strange-loops-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Strange Loops framework - nano-agent swarm with temporal consciousness",
+  "main": "index.js",
+  "bin": {
+    "strange-loops-mcp": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "strange-loops",
+    "temporal-consciousness",
+    "nano-agents",
+    "model-context-protocol"
+  ],
+  "author": "rUv <ruv@ruv.io>",
+  "license": "MIT",
+  "dependencies": {
+    "strange-loops": "^0.1.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruvnet/sublinear-time-solver.git"
+  },
+  "homepage": "https://github.com/ruvnet/sublinear-time-solver",
+  "bugs": {
+    "url": "https://github.com/ruvnet/sublinear-time-solver/issues"
+  }
+}

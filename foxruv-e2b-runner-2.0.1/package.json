@@ -1,0 +1,66 @@
+{
+  "name": "@foxruv/e2b-runner",
+  "version": "2.0.1",
+  "description": "Production-grade E2B sandbox orchestration with agentic-flow swarms and AgentDB caching for distributed AI agent execution",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "clean": "rm -rf dist",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts"
+  },
+  "keywords": [
+    "e2b",
+    "sandbox",
+    "agent-execution",
+    "isolated-execution",
+    "foxruv",
+    "agentic-flow",
+    "agentdb",
+    "ai-agents",
+    "distributed-systems",
+    "microbiome",
+    "multi-agent",
+    "swarm-orchestration",
+    "auto-scaling",
+    "real-time-streaming"
+  ],
+  "author": "FoxRuv",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxruv/e2b-runner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/foxruv/e2b-runner/issues"
+  },
+  "homepage": "https://github.com/foxruv/e2b-runner#readme",
+  "dependencies": {
+    "@e2b/code-interpreter": "^1.0.2",
+    "dotenv": "^16.4.5"
+  },
+  "peerDependencies": {
+    "agentic-flow": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "agentic-flow": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.6.3",
+    "vitest": "^2.0.0",
+    "eslint": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

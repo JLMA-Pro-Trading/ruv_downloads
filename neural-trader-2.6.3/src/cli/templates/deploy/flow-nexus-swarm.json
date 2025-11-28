@@ -1,0 +1,42 @@
+{
+  "name": "flow-nexus-swarm",
+  "description": "Flow Nexus swarm deployment with neural network support",
+  "version": "1.0.0",
+  "platform": "flow-nexus",
+  "config": {
+    "platform": "flow-nexus",
+    "swarm": {
+      "count": 5,
+      "topology": "mesh",
+      "minAgents": 3,
+      "maxAgents": 10
+    },
+    "neural": true,
+    "workflow": true,
+    "realtime": true,
+    "autoScale": true,
+    "region": "us-east",
+    "resources": {
+      "cpu": 4,
+      "memory": 8
+    },
+    "envVars": {
+      "NODE_ENV": "production",
+      "LOG_LEVEL": "info",
+      "ENABLE_SWARM_COORDINATION": "true",
+      "ENABLE_NEURAL_TRAINING": "true",
+      "ENABLE_WORKFLOW_AUTOMATION": "true",
+      "SWARM_SYNC_INTERVAL": "1000",
+      "NEURAL_BATCH_SIZE": "32",
+      "LEARNING_RATE": "0.001"
+    }
+  },
+  "notes": [
+    "Advanced swarm deployment with 5 agents",
+    "Mesh topology for full peer-to-peer communication",
+    "Neural network training enabled across swarm",
+    "Workflow automation for event-driven trading",
+    "Auto-scaling from 3 to 10 agents based on load",
+    "Real-time monitoring and coordination"
+  ]
+}

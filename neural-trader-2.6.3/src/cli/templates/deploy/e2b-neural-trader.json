@@ -1,0 +1,33 @@
+{
+  "name": "e2b-neural-trader",
+  "description": "Production-ready E2B deployment for neural trading strategies",
+  "version": "1.0.0",
+  "platform": "e2b",
+  "config": {
+    "platform": "e2b",
+    "template": "neural-trader-optimized",
+    "scale": 3,
+    "region": "us-east",
+    "resources": {
+      "cpu": 4,
+      "memory": 8,
+      "timeout": 7200
+    },
+    "autoRestart": true,
+    "envVars": {
+      "NODE_ENV": "production",
+      "LOG_LEVEL": "info",
+      "ENABLE_METRICS": "true",
+      "ENABLE_NEURAL_LEARNING": "true",
+      "BACKTEST_MODE": "false",
+      "MAX_POSITION_SIZE": "10000",
+      "RISK_LIMIT": "0.02"
+    }
+  },
+  "notes": [
+    "Production template with 3 sandboxes for redundancy",
+    "Optimized resources for neural network training",
+    "Auto-restart enabled for high availability",
+    "Includes comprehensive environment configuration"
+  ]
+}

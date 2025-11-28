@@ -1,0 +1,1 @@
+{"version":3,"file":"server.d.ts","sourceRoot":"","sources":["../../src/mcp/server.ts"],"names":[],"mappings":"AAAA;;;GAGG;AAEH,OAAO,KAAK,EAAE,UAAU,EAAE,WAAW,EAAE,MAAM,aAAa,CAAC;AAU3D,qBAAa,SAAS;IACpB,OAAO,CAAC,QAAQ,CAAsE;;IAOtF,OAAO,CAAC,gBAAgB;IAiRlB,aAAa,CAAC,OAAO,EAAE,UAAU,GAAG,OAAO,CAAC,WAAW,CAAC;CAgC/D"}

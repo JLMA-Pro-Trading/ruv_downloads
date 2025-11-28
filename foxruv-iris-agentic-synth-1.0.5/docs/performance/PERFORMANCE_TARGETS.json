@@ -1,0 +1,268 @@
+{
+  "version": "1.0.0",
+  "updated": "2025-11-22",
+  "targets": {
+    "latency": {
+      "p50": {
+        "value": 50,
+        "unit": "ms",
+        "priority": "high",
+        "description": "Median latency for prompt generation"
+      },
+      "p95": {
+        "value": 75,
+        "unit": "ms",
+        "priority": "high",
+        "description": "95th percentile latency"
+      },
+      "p99": {
+        "value": 100,
+        "unit": "ms",
+        "priority": "critical",
+        "description": "99th percentile latency - critical for user experience"
+      }
+    },
+    "throughput": {
+      "concurrent": {
+        "value": 4000,
+        "unit": "req/min",
+        "priority": "critical",
+        "description": "Minimum concurrent throughput requirement"
+      },
+      "sustained": {
+        "value": 3500,
+        "unit": "req/min",
+        "priority": "high",
+        "description": "Sustained throughput over 60 seconds"
+      },
+      "burst": {
+        "value": 10000,
+        "unit": "req/min",
+        "priority": "medium",
+        "description": "Peak burst capacity"
+      }
+    },
+    "memory": {
+      "peak": {
+        "value": 512,
+        "unit": "MB",
+        "priority": "critical",
+        "description": "Maximum memory usage during streaming"
+      },
+      "leak": {
+        "value": 0,
+        "unit": "MB/iteration",
+        "priority": "critical",
+        "description": "No memory leaks - zero growth over time"
+      },
+      "baseline": {
+        "value": 100,
+        "unit": "MB",
+        "priority": "low",
+        "description": "Baseline memory usage at idle"
+      }
+    },
+    "cache": {
+      "hitRate": {
+        "value": 0.7,
+        "unit": "percentage",
+        "priority": "high",
+        "description": "Minimum cache hit rate for cost optimization"
+      },
+      "hitLatency": {
+        "value": 5,
+        "unit": "ms",
+        "priority": "medium",
+        "description": "Average latency for cache hits"
+      },
+      "missLatency": {
+        "value": 100,
+        "unit": "ms",
+        "priority": "medium",
+        "description": "Average latency for cache misses"
+      }
+    },
+    "reliability": {
+      "successRate": {
+        "value": 0.999,
+        "unit": "percentage",
+        "priority": "critical",
+        "description": "99.9% success rate"
+      },
+      "fallbackRate": {
+        "value": 0.05,
+        "unit": "percentage",
+        "priority": "medium",
+        "description": "Maximum acceptable fallback rate"
+      },
+      "fallbackOverhead": {
+        "value": 50,
+        "unit": "ms",
+        "priority": "medium",
+        "description": "Maximum overhead for fallback mechanism"
+      }
+    },
+    "evolution": {
+      "generationTime": {
+        "value": 1000,
+        "unit": "ms",
+        "priority": "medium",
+        "description": "Maximum time per generation"
+      },
+      "efficiencyScore": {
+        "value": 1.0,
+        "unit": "individuals/ms",
+        "priority": "low",
+        "description": "Minimum efficiency score"
+      }
+    }
+  },
+  "optimizations": [
+    {
+      "id": 1,
+      "name": "Streaming with Backpressure",
+      "priority": "critical",
+      "estimatedImprovement": {
+        "memory": "-60%",
+        "gcPauses": "-40%"
+      },
+      "effort": "medium",
+      "duration": "2-3 days"
+    },
+    {
+      "id": 2,
+      "name": "Connection Pooling",
+      "priority": "critical",
+      "estimatedImprovement": {
+        "p99Latency": "-30-40%",
+        "throughput": "+100%"
+      },
+      "effort": "low",
+      "duration": "1 day"
+    },
+    {
+      "id": 3,
+      "name": "Request Batching",
+      "priority": "critical",
+      "estimatedImprovement": {
+        "latency": "-50-70%",
+        "throughput": "+300-400%",
+        "cost": "-40%"
+      },
+      "effort": "medium",
+      "duration": "2-3 days"
+    },
+    {
+      "id": 4,
+      "name": "Adaptive Concurrency",
+      "priority": "high",
+      "estimatedImprovement": {
+        "resourceUtilization": "+30%",
+        "variance": "-30%"
+      },
+      "effort": "medium",
+      "duration": "3-4 days"
+    },
+    {
+      "id": 5,
+      "name": "Semantic Caching",
+      "priority": "high",
+      "estimatedImprovement": {
+        "cacheHitRate": "+40-50%",
+        "apiCalls": "-40-50%"
+      },
+      "effort": "high",
+      "duration": "1 week"
+    },
+    {
+      "id": 6,
+      "name": "Worker Thread Pool",
+      "priority": "high",
+      "estimatedImprovement": {
+        "parallelization": "+400%",
+        "throughput": "+50%"
+      },
+      "effort": "medium",
+      "duration": "3-4 days"
+    },
+    {
+      "id": 7,
+      "name": "HTTP/2 Multiplexing",
+      "priority": "medium",
+      "estimatedImprovement": {
+        "throughput": "+20-30%"
+      },
+      "effort": "low",
+      "duration": "1-2 days"
+    },
+    {
+      "id": 8,
+      "name": "Predictive Cache Warming",
+      "priority": "medium",
+      "estimatedImprovement": {
+        "initialHitRate": "+15-20%"
+      },
+      "effort": "medium",
+      "duration": "2-3 days"
+    },
+    {
+      "id": 9,
+      "name": "Object Pooling",
+      "priority": "medium",
+      "estimatedImprovement": {
+        "gcTime": "-30%",
+        "latencyVariance": "-20%"
+      },
+      "effort": "low",
+      "duration": "1-2 days"
+    },
+    {
+      "id": 10,
+      "name": "Request Deduplication",
+      "priority": "medium",
+      "estimatedImprovement": {
+        "apiCalls": "-10-20%"
+      },
+      "effort": "low",
+      "duration": "1 day"
+    },
+    {
+      "id": 11,
+      "name": "Adaptive Batch Sizing",
+      "priority": "medium",
+      "estimatedImprovement": {
+        "latency": "-15-20%",
+        "variance": "-25%"
+      },
+      "effort": "low",
+      "duration": "1-2 days"
+    },
+    {
+      "id": 12,
+      "name": "Circuit Breaker",
+      "priority": "medium",
+      "estimatedImprovement": {
+        "fallbackLatency": "-60%"
+      },
+      "effort": "low",
+      "duration": "1 day"
+    }
+  ],
+  "roadmap": {
+    "week1": {
+      "title": "Critical Foundations",
+      "optimizations": [2, 3, 1],
+      "expectedImprovement": "2-3x overall performance"
+    },
+    "week2-3": {
+      "title": "High-Value Optimizations",
+      "optimizations": [4, 6, 5],
+      "expectedImprovement": "1.5-2x additional improvement"
+    },
+    "week4+": {
+      "title": "Refinements",
+      "optimizations": [7, 8, 9, 10, 11, 12],
+      "expectedImprovement": "20-30% additional improvement"
+    }
+  }
+}

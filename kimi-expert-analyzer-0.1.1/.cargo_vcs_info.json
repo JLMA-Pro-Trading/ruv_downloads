@@ -1,0 +1,7 @@
+{
+  "git": {
+    "sha1": "4609aa92c1fe6aa68aeeebb66f36153820acc5ab",
+    "dirty": true
+  },
+  "path_in_vcs": "standalone-crates/synaptic-mesh-cli/crates/kimi-expert-analyzer"
+}

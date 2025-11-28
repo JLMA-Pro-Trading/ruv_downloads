@@ -1,0 +1,13 @@
+FROM node:18-alpine
+
+# Install basic tools
+RUN apk add --no-cache bash curl
+
+# Set working directory
+WORKDIR /test
+
+# Copy test file
+COPY test.cu ./
+
+# Test the npx command
+CMD ["sh", "-c", "echo 'Testing cuda-wasm from npm...' && npx cuda-wasm@1.0.1 transpile test.cu -o test.wasm && echo 'Success!' && ls -la test.wasm && cat test.wasm"]

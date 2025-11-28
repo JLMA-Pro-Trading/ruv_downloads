@@ -1,0 +1,66 @@
+{
+  "name": "@neural-trader/agentic-accounting-core",
+  "version": "0.1.0",
+  "description": "Core library for agentic accounting system with tax calculations, compliance, and forensic analysis",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "decimal.js": "^10.4.3",
+    "pg": "^8.11.3",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/pg": "^8.10.9",
+    "@types/uuid": "^9.0.7",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vitest/coverage-v8": "^1.0.4",
+    "eslint": "^8.55.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.4"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "accounting",
+    "tax-calculation",
+    "compliance",
+    "forensic-analysis",
+    "agentic",
+    "neural-trader",
+    "crypto-accounting",
+    "portfolio-tracking"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruvnet/neural-trader",
+    "directory": "packages/core"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

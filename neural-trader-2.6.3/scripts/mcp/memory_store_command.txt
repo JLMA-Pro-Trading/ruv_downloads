@@ -1,0 +1,76 @@
+# Memory Storage Command for Swarm Coordination
+
+To store the optimization results in memory, use:
+
+```javascript
+Memory.store("swarm-swing-optimization-1750710328118/parameter-optimizer/optimal-params", {
+  "step": "Parameter Optimization Complete",
+  "timestamp": "2025-06-23T21:36:42.067452",
+  "optimization_method": "ensemble",
+  "old_params": {
+    "max_position": 0.50,
+    "risk_per_trade": 0.02,
+    "holding_days": 10,
+    "trailing_stop": 0.03,
+    "annual_return": 0.011
+  },
+  "optimized_params": {
+    "max_position": 0.12,
+    "risk_per_trade": 0.015,
+    "holding_days": {
+      "min": 3,
+      "max": 8,
+      "optimal": 5
+    },
+    "trailing_stop": {
+      "type": "dynamic_atr",
+      "activation": 1.5,
+      "initial": 1.5,
+      "tightening_schedule": {
+        "2R": 1.25,
+        "3R": 1.0,
+        "4R": 0.75
+      }
+    },
+    "entry_filters": {
+      "rsi_range": [30, 70],
+      "volume_surge": 1.5,
+      "trend_alignment": true,
+      "atr_range": [0.01, 0.035]
+    },
+    "exit_strategy": {
+      "stop_loss": "2.0 ATR",
+      "profit_targets": [1.5, 2.5, 4.0],
+      "partial_exits": [0.33, 0.33, 0.34]
+    }
+  },
+  "expected_metrics": {
+    "annual_return": 0.25,
+    "sharpe_ratio": 2.2,
+    "max_drawdown": 0.10,
+    "win_rate": 0.60,
+    "profit_factor": 2.5
+  },
+  "critical_fixes": [
+    "Reduced max position from 50% to 12%",
+    "Implemented multi-level profit taking",
+    "Added volume and trend filters",
+    "Dynamic position sizing based on volatility",
+    "Portfolio heat management (6% max risk)",
+    "Market regime adaptation",
+    "ATR-based stop losses",
+    "Trailing stop with tightening schedule"
+  ],
+  "implementation_ready": true,
+  "files_created": [
+    "/src/optimization/swing_parameter_optimizer.py",
+    "/src/optimization/aggressive_swing_optimizer.py",
+    "/src/optimization/production_swing_parameters.py",
+    "swing_optimization_results.json",
+    "aggressive_swing_parameters.json",
+    "production_swing_parameters.json",
+    "swing_optimization_memory.json",
+    "SWING_PARAMETER_OPTIMIZATION_REPORT.md"
+  ]
+});
+```

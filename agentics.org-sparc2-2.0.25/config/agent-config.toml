@@ -1,0 +1,67 @@
+# SPARC2 Agent Configuration
+
+[agent]
+name = "SPARC2 Agent"
+description = "An autonomous agent for code analysis and modification"
+default_flow = "analyze_and_modify"
+
+[providers]
+  [providers.openai]
+  type = "openai"
+  api_key_env = "OPENAI_API_KEY"
+  default_model = "gpt-4o"
+  
+  [providers.openrouter]
+  type = "openrouter"
+  api_key_env = "OPENROUTER_API_KEY"
+  default_model = "openai/o3-mini-high"
+
+[flows]
+  [flows.analyze_and_modify]
+  description = "Analyze code and suggest modifications"
+  
+  [flows.analyze_and_modify.steps]
+    [flows.analyze_and_modify.steps.analyze]
+    provider = "openrouter"
+    model = "${providers.openrouter.default_model}"
+    description = "Analyze code for issues and improvements"
+    system_prompt = """
+    You are a code analysis expert. Analyze the provided code and identify:
+    1. Potential bugs or issues
+    2. Performance improvements
+    3. Readability improvements
+    4. Security concerns
+    
+    Be specific and provide clear explanations for each issue.
+    """
+    
+    [flows.analyze_and_modify.steps.plan]
+    provider = "openai"
+    model = "${providers.openai.default_model}"
+    description = "Plan modifications based on analysis"
+    system_prompt = """
+    You are a software architect. Based on the code analysis, create a plan for modifications that will address the identified issues.
+    
+    For each modification:
+    1. Describe what will be changed
+    2. Explain why this change addresses the issue
+    3. Consider any potential side effects
+    
+    Be specific and provide clear explanations.
+    """
+    
+    [flows.analyze_and_modify.steps.modify]
+    provider = "openai"
+    use_assistant = true
+    assistant_instructions = """
+    You are a code modification expert. Implement the planned modifications to the code.
+    
+    Follow these guidelines:
+    1. Make minimal changes to address the specific issues
+    2. Maintain the existing code style and patterns
+    3. Add comments explaining significant changes
+    4. Ensure the code remains functional
+    
+    Provide the modified code and an explanation of the changes made.
+    """
+    tools = ["code_analysis", "code_execution"]

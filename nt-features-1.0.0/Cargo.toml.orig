@@ -1,0 +1,35 @@
+[package]
+name = "nt-features"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Feature extraction and engineering for Neural Trader - technical indicators and market signals"
+documentation = "https://docs.rs/nt-features"
+readme = "README.md"
+keywords = ["trading", "features", "indicators", "finance", "signals"]
+categories = ["finance", "algorithms", "science"]
+
+[dependencies]
+nt-core = { version = "1.0.0", path = "../core" }
+
+# Workspace dependencies
+rust_decimal.workspace = true
+serde.workspace = true
+chrono.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+
+# Additional dependencies
+polars = { version = "0.36", features = ["lazy", "temporal"], optional = true }
+ndarray = "0.15"
+seahash = "4.1"
+
+[dev-dependencies]
+approx = "0.5"
+rust_decimal_macros = "1.33"
+
+[features]
+default = []
+polars-support = ["polars"]

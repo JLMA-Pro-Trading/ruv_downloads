@@ -1,0 +1,33 @@
+{
+  "name": "@foxruv/iris-api",
+  "version": "1.0.0",
+  "description": "IRIS Backend API Service for managed credential proxy and authentication",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "rate-limiter-flexible": "^5.0.3",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "typescript": "^5.6.0",
+    "tsx": "^4.7.0",
+    "vitest": "^1.0.4"
+  }
+}

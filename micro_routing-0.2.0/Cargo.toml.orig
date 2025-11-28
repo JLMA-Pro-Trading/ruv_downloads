@@ -1,0 +1,33 @@
+[package]
+name = "micro_routing"
+version = "0.2.0"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords = ["neural-networks", "routing", "agents", "context"]
+categories = ["science", "algorithms"]
+description = "Dynamic routing and context management for micro-neural networks"
+
+[dependencies]
+# Use micro_core for shared types
+micro_core = { version = "0.2.0" }
+serde.workspace = true
+serde_json.workspace = true
+rand.workspace = true
+
+[features]
+default = ["std"]
+std = ["serde/std", "serde_json/std", "rand/std"]
+rule-based = []
+neural-gating = []
+context-compression = []
+metrics = []
+wasm = ["micro_core/wasm"]
+wasm-simd = ["wasm", "micro_core/simd"]
+
+[dev-dependencies]
+criterion.workspace = true
+proptest.workspace = true
+
+# Part of the main workspace

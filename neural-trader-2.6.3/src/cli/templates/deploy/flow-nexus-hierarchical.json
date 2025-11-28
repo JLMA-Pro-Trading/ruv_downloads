@@ -1,0 +1,45 @@
+{
+  "name": "flow-nexus-hierarchical",
+  "description": "Hierarchical swarm deployment for large-scale trading",
+  "version": "1.0.0",
+  "platform": "flow-nexus",
+  "config": {
+    "platform": "flow-nexus",
+    "swarm": {
+      "count": 20,
+      "topology": "hierarchical",
+      "minAgents": 10,
+      "maxAgents": 50
+    },
+    "neural": true,
+    "workflow": true,
+    "realtime": true,
+    "autoScale": true,
+    "region": "us-east",
+    "resources": {
+      "cpu": 8,
+      "memory": 16
+    },
+    "envVars": {
+      "NODE_ENV": "production",
+      "LOG_LEVEL": "warn",
+      "ENABLE_SWARM_COORDINATION": "true",
+      "ENABLE_NEURAL_TRAINING": "true",
+      "ENABLE_WORKFLOW_AUTOMATION": "true",
+      "SWARM_SYNC_INTERVAL": "500",
+      "NEURAL_BATCH_SIZE": "64",
+      "LEARNING_RATE": "0.0001",
+      "HIERARCHY_LEVELS": "3",
+      "COORDINATOR_COUNT": "5",
+      "WORKER_COUNT": "15"
+    }
+  },
+  "notes": [
+    "Large-scale hierarchical deployment with 20 agents",
+    "3-level hierarchy: coordinators, workers, and executors",
+    "Optimized for high-throughput trading",
+    "Advanced neural network training with larger batch sizes",
+    "Auto-scaling from 10 to 50 agents",
+    "High-performance resources (8 CPU, 16GB RAM per agent)"
+  ]
+}

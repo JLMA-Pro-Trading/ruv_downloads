@@ -1,0 +1,30 @@
+import { Context, Message, AgentState, UserPreferences, AuthInfo } from '../types';
+export declare class MCPContext implements Context {
+    conversation: Message[];
+    state: AgentState;
+    parent?: Context;
+    constructor(parent?: Context);
+    private getDefaultPreferences;
+    addMessage(message: Message): void;
+    getConversationHistory(): Message[];
+    setState<K extends keyof AgentState>(key: K, value: AgentState[K]): void;
+    getState<K extends keyof AgentState>(key: K): AgentState[K] | undefined;
+    setResource(key: string, value: any): void;
+    getResource(key: string): any;
+    remember(key: string, value: any): void;
+    recall(key: string): any;
+    trackAction(action: string): void;
+    getActions(): string[];
+    markCollected(field: string): void;
+    isCollected(field: string): boolean;
+    initializeWorkflow(): void;
+    getWorkflowId(): string | undefined;
+    setAuth(auth: AuthInfo): void;
+    getAuth(): AuthInfo;
+    setPreferences(prefs: Partial<UserPreferences>): void;
+    getPreferences(): UserPreferences;
+    createChild(): Context;
+    getParent(): Context | undefined;
+    clone(): Context;
+    clear(): void;
+}

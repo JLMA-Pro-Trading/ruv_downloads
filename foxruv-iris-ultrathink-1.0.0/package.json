@@ -1,0 +1,113 @@
+{
+  "name": "@foxruv/iris-ultrathink",
+  "version": "1.0.0",
+  "description": "Standalone MCP server with agentic-flow and agentdb integration",
+  "type": "module",
+  "main": "./dist/server/index.js",
+  "types": "./dist/server/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/server/index.js",
+      "types": "./dist/server/index.d.ts"
+    },
+    "./triggers": {
+      "import": "./dist/triggers/index.js",
+      "types": "./dist/triggers/index.d.ts"
+    },
+    "./cli": {
+      "import": "./dist/cli/index.js",
+      "types": "./dist/cli/index.d.ts"
+    },
+    "./coordination": {
+      "import": "./dist/coordination/index.js",
+      "types": "./dist/coordination/index.d.ts"
+    },
+    "./learning": {
+      "import": "./dist/learning/index.js",
+      "types": "./dist/learning/index.d.ts"
+    },
+    "./skills": {
+      "import": "./dist/skills/index.js",
+      "types": "./dist/skills/index.d.ts"
+    }
+  },
+  "bin": {
+    "ultrathink": "./bin/ultrathink.js",
+    "ultrathink-mcp": "./dist/server/server.js"
+  },
+  "scripts": {
+    "start": "node --loader ts-node/esm src/server/server.ts",
+    "start:dev": "NODE_ENV=development node --loader ts-node/esm --watch src/server/server.ts",
+    "build": "tsup && tsc",
+    "build:cli": "tsup",
+    "build:watch": "tsup --watch",
+    "build:script": "tsx scripts/build.ts",
+    "dev": "tsx src/cli/index.ts",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "skills:import": "tsx -e \"import {importMcpsFromSettings} from './src/skills/index.js'; await importMcpsFromSettings({projectRoot:process.cwd()})\"",
+    "skills:sync": "tsx -e \"import {syncSkillIndex} from './src/skills/index.js'; await syncSkillIndex({projectRoot:process.cwd()})\"",
+    "skills:init": "tsx -e \"import {initializeSkillInfrastructure} from './src/skills/index.js'; await initializeSkillInfrastructure(process.cwd())\""
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "agentic-flow",
+    "agentdb",
+    "swarm",
+    "multi-agent",
+    "ai",
+    "llm"
+  ],
+  "author": "UltraThink Team",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "chalk": "^5.6.2",
+    "commander": "^12.1.0",
+    "enquirer": "^2.4.1",
+    "fs-extra": "^11.3.2",
+    "glob": "^10.5.0",
+    "ora": "^8.2.0"
+  },
+  "peerDependencies": {
+    "agentdb": ">=1.0.0",
+    "agentic-flow": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "agentic-flow": {
+      "optional": true
+    },
+    "agentdb": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/agent-learning-core.git",
+    "directory": "packages/ultrathink"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/agent-learning-core/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

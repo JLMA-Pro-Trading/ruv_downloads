@@ -1,0 +1,81 @@
+{
+  "name": "@foxruv/iris-core",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Intelligent AI orchestration with multi-provider LM management, drift detection, auto-retraining, and performance tracking for production AI systems",
+  "author": "Iris Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scan-iq/iris.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/scan-iq/iris/tree/main/packages/core",
+  "bugs": {
+    "url": "https://github.com/scan-iq/iris/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./providers": {
+      "types": "./dist/providers/index.d.ts",
+      "default": "./dist/providers/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@vitest/coverage-v8": "^1.1.0",
+    "typescript": "^5.6.0",
+    "vitest": "^1.1.0"
+  },
+  "keywords": [
+    "iris",
+    "ai-orchestration",
+    "llm",
+    "lm-provider",
+    "multi-provider",
+    "claude",
+    "anthropic",
+    "qwen",
+    "drift-detection",
+    "auto-retraining",
+    "prompt-optimization",
+    "ai-ops",
+    "mlops",
+    "machine-learning",
+    "artificial-intelligence",
+    "performance-tracking",
+    "health-monitoring",
+    "typescript",
+    "esm",
+    "zero-dependencies",
+    "production-ready",
+    "ai-agent",
+    "intelligent-systems"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

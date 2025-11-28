@@ -1,0 +1,110 @@
+{
+  "name": "@foxruv/iris-agentic-synth",
+  "version": "1.0.5",
+  "type": "module",
+  "description": "⚡ High-performance synthetic prompt generation with genetic evolution, streaming, and multi-model routing. 90%+ cache hit rate, <15ms P99 latency, no Redis required.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "agentic-synth": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:optimized": "rollup -c config/rollup.config.js",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "benchmark": "npm run build && node --expose-gc dist/utils/benchmark.js",
+    "benchmark:cache": "node dist/benchmarks/cache-benchmark.js",
+    "benchmark:genetic": "node dist/benchmarks/genetic-benchmark.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "prepublishOnly": "npm run build",
+    "validate": "npm run typecheck && npm run test && npm run build"
+  },
+  "keywords": [
+    "synthetic-prompts",
+    "genetic-algorithm",
+    "prompt-engineering",
+    "prompt-evolution",
+    "streaming",
+    "multi-model",
+    "llm",
+    "ai",
+    "machine-learning",
+    "prompt-optimization",
+    "fitness-evaluation",
+    "mutation-strategies",
+    "crossover-algorithms",
+    "real-time-streaming",
+    "async-generators",
+    "high-performance",
+    "cache-optimization",
+    "model-routing",
+    "vector-search",
+    "semantic-similarity",
+    "agentic-ai",
+    "prompt-generation",
+    "nlp",
+    "natural-language-processing",
+    "typescript",
+    "zod-validation",
+    "performance-optimization",
+    "genetic-evolution",
+    "evolutionary-algorithms",
+    "no-redis",
+    "midstreamer",
+    "agentic-robotics",
+    "ruvector"
+  ],
+  "author": {
+    "name": "ruv.io",
+    "email": "hello@ruv.io",
+    "url": "https://ruv.io"
+  },
+  "homepage": "https://github.com/ruvnet/agentic-synth#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruvnet/agentic-synth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ruvnet/agentic-synth/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "agentic-robotics": "latest",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "midstreamer": "^0.2.4",
+    "ora": "^5.4.1",
+    "zod": "^3.22.4"
+  },
+  "optionalDependencies": {
+    "ruvector": "^0.1.7"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "@vitest/ui": "^1.0.0",
+    "eslint": "^8.55.0",
+    "rollup": "^4.9.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

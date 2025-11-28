@@ -1,0 +1,15 @@
+[package]
+name = "nt-backtesting"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "High-performance backtesting engine for Neural Trader - vectorized calculations and event-driven simulation"
+documentation = "https://docs.rs/nt-backtesting"
+readme = "README.md"
+keywords = ["trading", "backtesting", "quant", "finance", "simulation"]
+categories = ["finance", "algorithms", "simulation"]
+
+[dependencies]
+nt-core = { version = "1.0.0", path = "../core" }
