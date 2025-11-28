@@ -40,14 +40,14 @@ fi
 DISCOVERED_CRATES=()
 if [ "$DISCOVER" -eq 1 ]; then
   echo "Discovering crates from crates.io for user: ruvnet ..."
-    user_json=$(curl -s "https://crates.io/api/v1/users/ruvnet")
+    user_json=$(curl -s -A "ruvnet-downloader (github-actions)" "https://crates.io/api/v1/users/ruvnet")
     # Use the crates.io search API with user_id to find ALL crates
     # User ID for ruvnet is 339999
     # Implement pagination to get all results
     page=1
     while true; do
       echo "    Fetching page $page..."
-      search_json=$(curl -s "https://crates.io/api/v1/crates?page=${page}&per_page=100&user_id=339999")
+      search_json=$(curl -s -A "ruvnet-downloader (github-actions)" "https://crates.io/api/v1/crates?page=${page}&per_page=100&user_id=339999")
       
       # Extract names from current page
       page_names=$(echo "$search_json" | grep -o '"name":"[^\"]\+' | sed -E 's/"name":"//' | sort -u || true)
@@ -77,11 +77,11 @@ if [ "$DISCOVER" -eq 1 ]; then
   # If empty, fallback to search API and HTML parsing
   if [ ${#DISCOVERED_CRATES[@]} -eq 0 ]; then
     echo "  API did not return crates; falling back to search API and HTML parsing"
-    search_json=$(curl -s "https://crates.io/api/v1/crates?page=1&per_page=100&user_id=339999")
-    IFS=$'\n' DISCOVERED_CRATES=( $(echo "$search_json" | grep -o '"name":"[^"]\+' | sed -E 's/"name":"//' | sort -u) )
+    search_json=$(curl -s -A "ruvnet-downloader (github-actions)" "https://crates.io/api/v1/crates?page=1&per_page=100&user_id=339999")
+    IFS=$'\n' DISCOVERED_CRATES=( $(echo "$search_json" | grep -o '"name":"[^"]\+' | sed -E 's/"name":"//' | sort -u || true) )
     unset IFS
     if [ ${#DISCOVERED_CRATES[@]} -eq 0 ]; then
-      DISCOVERED_CRATES=( $(curl -s "https://crates.io/users/ruvnet" | grep -o 'href="/crates/[^" ]\+' | sed -E 's/href="\/crates\/(.+)/\1/' | sed 's/"//' | sort -u) )
+      DISCOVERED_CRATES=( $(curl -s -A "ruvnet-downloader (github-actions)" "https://crates.io/users/ruvnet" | grep -o 'href="/crates/[^" ]\+' | sed -E 's/href="\/crates\/(.+)/\1/' | sed 's/"//' | sort -u || true) )
     fi
   fi
 
@@ -138,7 +138,7 @@ do
   echo "Checking: $crate"
 
   # Query crates.io API for latest published version
-  latest_version=$(curl -s "https://crates.io/api/v1/crates/${crate}" | grep -o '"max_version":"[^"]\+' | head -n1 | sed -E 's/"max_version":"(.*)/\1/')
+  latest_version=$(curl -s -A "ruvnet-downloader (github-actions)" "https://crates.io/api/v1/crates/${crate}" | grep -o '"max_version":"[^"]\+' | head -n1 | sed -E 's/"max_version":"(.*)/\1/' || true)
 
   if [ -z "$latest_version" ]; then
     echo "  Warning: crate not found on crates.io: $crate -- skipping"
@@ -224,7 +224,7 @@ do
   # This works even for yanked crates.
   download_url="https://crates.io/api/v1/crates/${crate}/${latest_version}/download"
   out_file="${crate}-${latest_version}.crate"
-  if ! curl -L -o "$out_file" "$download_url"; then
+  if ! curl -L -A "ruvnet-downloader (github-actions)" -o "$out_file" "$download_url"; then
     echo "  Warning: failed to download $crate@$latest_version (HTTP error) -- skipping"
     continue
   fi

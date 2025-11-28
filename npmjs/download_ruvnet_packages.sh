@@ -40,9 +40,9 @@ fi
 DISCOVERED_PACKAGES=()
 if [ "$DISCOVER" -eq 1 ]; then
   echo "Discovering packages from npm registry for user: ruvnet ..."
-  pkg_json=$(curl -s "https://registry.npmjs.org/-/v1/search?text=maintainer:ruvnet&size=250")
+  pkg_json=$(curl -s -A "ruvnet-downloader (github-actions)" "https://registry.npmjs.org/-/v1/search?text=maintainer:ruvnet&size=250")
   # extract package names without requiring jq
-  IFS=$'\n' DISCOVERED_PACKAGES=( $(echo "$pkg_json" | grep -o '"name":"[^"]\+' | sed -E 's/"name":"//' | sort -u) )
+  IFS=$'\n' DISCOVERED_PACKAGES=( $(echo "$pkg_json" | grep -o '"name":"[^"]\+' | sed -E 's/"name":"//' | sort -u || true) )
   unset IFS
   
   if [ ${#DISCOVERED_PACKAGES[@]} -gt 0 ]; then
